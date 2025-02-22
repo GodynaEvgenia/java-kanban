@@ -27,18 +27,6 @@ public class TaskManager {
         return id;
     }
 
-    /*public HashMap<Integer, Task> getTasks() {
-        return tasks;
-    }
-
-    public HashMap<Integer, Epic> getEpics() {
-        return epics;
-    }
-
-    public HashMap<Integer, SubTask> getSubTasks() {
-        return subTasks;
-    }*/
-
     public ArrayList<Task> getTasks() {
         return new ArrayList<>(tasks.values());
     }
@@ -50,20 +38,6 @@ public class TaskManager {
     public ArrayList<Epic> getEpics() {
         return new ArrayList<>(epics.values());
     }
-
-    /*public void addTask(Task task) {
-        tasks.put(task.getId(), task);
-    }
-
-    public void addEpic(Epic epic) {
-        epics.put(epic.getId(), epic);
-    }
-
-    public void addSubTask(SubTask subTask) {
-        subTasks.put(subTask.getId(), subTask);
-        //обновляем массив подзадач для эпика
-        epics.get(subTask.getEpicId()).getSubTasksList().add(subTask.getId());
-    }*/
 
     public int addNewTask(Task task) {
         final int id = getId();
@@ -103,16 +77,8 @@ public class TaskManager {
         return false;
     }
 
-
-
-    /*public void changeTaskStatus(Task task, Statuses status) {
-        task.changeStatus(status);
-        tasks.put(task.getId(), task);
-    }*/
-
     public void changeSubTaskStatus(SubTask subTask, Statuses newStatus) {
         subTask.setStatus(newStatus);
-        //subTasks.put(subTask.getId(), subTask);
         //статус эпика
         updateEpicStatus(subTask.getEpicId());
     }
@@ -171,6 +137,7 @@ public class TaskManager {
 
     public void removeAllEpics() {
         epics.clear();
+        subTasks.clear();
     }
 
     public void removeSubTaskById(Integer subTaskId) {
