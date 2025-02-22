@@ -1,10 +1,12 @@
-public class Task {
-    String name;
-    String desc;
-    int id;
-    Statuses status;
+package tracker.model;
 
-    Task(String name, String desc, int id) {
+public class Task {
+    protected String name;
+    protected String desc;
+    protected int id;
+    protected Statuses status;
+
+    public Task(String name, String desc, int id) {
         this.name = name;
         this.desc = desc;
         this.id = id;
@@ -15,13 +17,17 @@ public class Task {
         return id;
     }
 
-    public void changeStatus(Statuses newStatus) {
+    public void setId(int newId) {
+        this.id = newId;
+    }
+
+    public void setStatus(Statuses newStatus) {
         status = newStatus;
     }
 
     @Override
     public String toString() {
-        return "Task{"
+        return "tracker.model.Task{"
                 + "name='" + name + "', "
                 + "status=" + status
                 + '}';

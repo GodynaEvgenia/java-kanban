@@ -1,7 +1,9 @@
-public class SubTask extends Task {
-    int epicId;
+package tracker.model;
 
-    SubTask(String name, String desc, int id, int epicId) {
+public class SubTask extends Task {
+    private int epicId;
+
+    public SubTask(String name, String desc, int id, int epicId) {
         super(name, desc, id);
         this.epicId = epicId;
         //this.status = status;
@@ -16,13 +18,13 @@ public class SubTask extends Task {
     }
 
     @Override
-    public void changeStatus(Statuses newStatus) {
+    public void setStatus(Statuses newStatus) {
         status = newStatus;
     }
 
     @Override
     public String toString() {
-        return "SubTask{"
+        return "tracker.model.SubTask{"
                 + "id=" + getId() + ", "
                 + "name='" + name + "', "
                 + "status=" + status
