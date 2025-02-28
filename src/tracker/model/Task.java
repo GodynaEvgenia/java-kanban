@@ -1,5 +1,7 @@
 package tracker.model;
 
+import java.util.Objects;
+
 public class Task {
     protected String name;
     protected String desc;
@@ -31,5 +33,22 @@ public class Task {
                 + "name='" + name + "', "
                 + "status=" + status
                 + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return Objects.equals(name, task.name) &&
+                Objects.equals(desc, task.desc) &&
+                (id == task.id) &&
+                (status == task.status);
+    }
+
+    @Override
+    public int hashCode() {
+        // вызываем вспомогательный метод и передаём в него нужные поля
+        return Objects.hash(name, desc, id, status);
     }
 }

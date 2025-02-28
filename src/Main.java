@@ -1,4 +1,4 @@
-import tracker.controller.TaskManager;
+import tracker.controller.InMemoryTaskManager;
 import tracker.model.Epic;
 import tracker.model.Statuses;
 import tracker.model.SubTask;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
-        TaskManager taskManager = new TaskManager();
+        InMemoryTaskManager taskManager = new InMemoryTaskManager();
 
         /*Создайте две задачи, а также эпик с двумя подзадачами и эпик с одной подзадачей.*/
         Task task1 = new Task("Обучение", "Сдать все работы на платформе Practicum до дедлайна", taskManager.getId());
@@ -37,6 +37,7 @@ public class Main {
         SubTask subTask5 = new SubTask("Заказать двери", "Закаать двери", taskManager.getId(), epic3.getId());
         taskManager.addNewSubTask(subTask4);
         taskManager.addNewSubTask(subTask5);
+
 
         /*Распечатайте списки эпиков, задач и подзадач*/
         printTasks(taskManager.getTasks());
@@ -71,6 +72,8 @@ public class Main {
         printEpics(taskManager.getEpics());
         printSubTasks(taskManager.getSubtasks());
 
+        printHistory(taskManager);
+
     }
 
     public static void printTasks(ArrayList<Task> tasks) {
@@ -91,6 +94,13 @@ public class Main {
         System.out.println("Список подзадач:");
         for (SubTask subTask : subTasks) {
             System.out.println(subTask.toString());
+        }
+    }
+
+    private static void printHistory(InMemoryTaskManager taskManager) {
+        System.out.println("История:");
+        for (Task task : taskManager.getHistory()) {
+            System.out.println(task);
         }
     }
 }

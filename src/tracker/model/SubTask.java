@@ -1,5 +1,7 @@
 package tracker.model;
 
+import java.util.Objects;
+
 public class SubTask extends Task {
     private int epicId;
 
@@ -10,6 +12,12 @@ public class SubTask extends Task {
 
     public int getEpicId() {
         return epicId;
+    }
+
+    public void setEpicId(int newEpicId){
+        if (newEpicId != id){
+            epicId = newEpicId;
+        }
     }
 
     public Statuses getStatus() {
@@ -28,5 +36,21 @@ public class SubTask extends Task {
                 + "name='" + name + "', "
                 + "status=" + status
                 + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SubTask subTask = (SubTask) o;
+        return Objects.equals(name, subTask.name) &&
+                Objects.equals(desc, subTask.desc) &&
+                (id == subTask.id) ;
+    }
+
+    @Override
+    public int hashCode() {
+        // вызываем вспомогательный метод и передаём в него нужные поля
+        return Objects.hash(name, desc, id);
     }
 }
