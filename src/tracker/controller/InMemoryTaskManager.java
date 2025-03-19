@@ -124,7 +124,7 @@ public class InMemoryTaskManager implements TaskManager {
             epic.setStatus(Statuses.NEW);
         } else {
             for (Integer subtaskId : epicSubTasks) {
-                SubTask subTask = getSubTask(subtaskId);
+                SubTask subTask = subTasks.get(subtaskId);//getSubTask(subtaskId);//
                 switch (subTask.getStatus()) {
                     case NEW:
                         countNew += 1;
