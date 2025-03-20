@@ -50,8 +50,8 @@ public class Main {
         task = taskManager.getTask(task1.getId());
         task = taskManager.getTask(task2.getId());
         task = taskManager.getSubTask(subtask1.getId());
-        task = taskManager.getSubTask(subtask1.getId());
-        task = taskManager.getTask(task2.getId());
+        task = taskManager.getSubTask(subTask4.getId());
+        task = taskManager.getEpic(epic3.getId());
 
         /*Измените статусы созданных объектов, распечатайте их.
         Проверьте, что статус задачи и подзадачи сохранился,
@@ -60,6 +60,10 @@ public class Main {
         task2.setStatus(Statuses.IN_PROGRES);
         taskManager.changeSubTaskStatus(subtask1, Statuses.IN_PROGRES);
         taskManager.changeSubTaskStatus(subTask3, Statuses.IN_PROGRES);
+
+        printHistory(taskManager);
+
+        taskManager.removeAllEpics();
 
         printHistory(taskManager);
 
