@@ -16,8 +16,8 @@ public class Epic extends Task {
         return subTasksList;
     }
 
-    public void addSubTask(int subtaskId){
-        if (subtaskId != getId()){
+    public void addSubTask(int subtaskId) {
+        if (subtaskId != getId()) {
             subTasksList.add(subtaskId);
         }
     }
@@ -31,6 +31,7 @@ public class Epic extends Task {
                 + "subTasks=" + getSubTasksList()
                 + '}';
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -38,7 +39,7 @@ public class Epic extends Task {
         Epic epic = (Epic) o;
         return Objects.equals(name, epic.name) &&
                 Objects.equals(desc, epic.desc) &&
-                (id == epic.id) ;
+                (id == epic.id);
     }
 
     @Override

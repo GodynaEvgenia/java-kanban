@@ -44,6 +44,15 @@ public class Main {
         printEpics(taskManager.getEpics());
         printSubTasks(taskManager.getSubtasks());
 
+        //просмотр
+        Task task = taskManager.getTask(task1.getId());
+        task = taskManager.getTask(task2.getId());
+        task = taskManager.getTask(task1.getId());
+        task = taskManager.getTask(task2.getId());
+        task = taskManager.getSubTask(subtask1.getId());
+        task = taskManager.getSubTask(subTask4.getId());
+        task = taskManager.getEpic(epic3.getId());
+
         /*Измените статусы созданных объектов, распечатайте их.
         Проверьте, что статус задачи и подзадачи сохранился,
          а статус эпика рассчитался по статусам подзадач.*/
@@ -52,25 +61,9 @@ public class Main {
         taskManager.changeSubTaskStatus(subtask1, Statuses.IN_PROGRES);
         taskManager.changeSubTaskStatus(subTask3, Statuses.IN_PROGRES);
 
-        printTasks(taskManager.getTasks());
-        printEpics(taskManager.getEpics());
-        printSubTasks(taskManager.getSubtasks());
+        printHistory(taskManager);
 
-        taskManager.changeSubTaskStatus(subTask3, Statuses.DONE);
-        printEpics(taskManager.getEpics());
-
-        /*И, наконец, попробуйте удалить одну из задач и один из эпиков.*/
-        taskManager.removeTaskById(task1.getId());
-        taskManager.removeEpicById(epic2.getId());
-
-        printTasks(taskManager.getTasks());
-        printEpics(taskManager.getEpics());
-        printSubTasks(taskManager.getSubtasks());
-
-        taskManager.removeAllSubtasks();
-        printTasks(taskManager.getTasks());
-        printEpics(taskManager.getEpics());
-        printSubTasks(taskManager.getSubtasks());
+        taskManager.removeAllEpics();
 
         printHistory(taskManager);
 

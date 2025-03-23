@@ -14,8 +14,8 @@ public class SubTask extends Task {
         return epicId;
     }
 
-    public void setEpicId(int newEpicId){
-        if (newEpicId != id){
+    public void setEpicId(int newEpicId) {
+        if (newEpicId != id) {
             epicId = newEpicId;
         }
     }
@@ -45,7 +45,7 @@ public class SubTask extends Task {
         SubTask subTask = (SubTask) o;
         return Objects.equals(name, subTask.name) &&
                 Objects.equals(desc, subTask.desc) &&
-                (id == subTask.id) ;
+                (id == subTask.id);
     }
 
     @Override

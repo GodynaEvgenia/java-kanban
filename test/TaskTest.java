@@ -1,4 +1,4 @@
-package tracker.test;
+package test;
 
 import org.junit.jupiter.api.Test;
 import tracker.controller.InMemoryTaskManager;
@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class TaskTest {
 
     @Test
-    void checkEqualsById(){
+    void checkEqualsById() {
         InMemoryTaskManager taskManager = new InMemoryTaskManager();
         Task task = new Task("Test checkEqualsById", "Test checkEqualsById description", taskManager.getId());
         final int taskId = taskManager.addNewTask(task);

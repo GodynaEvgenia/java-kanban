@@ -1,4 +1,4 @@
-package tracker.test;
+package test;
 
 import org.junit.jupiter.api.Test;
 import tracker.controller.InMemoryTaskManager;
@@ -18,7 +18,7 @@ class InMemoryTaskManagerTest {
     }
 
     @Test
-    void createTasks(){
+    void createTasks() {
         InMemoryTaskManager taskManager = new InMemoryTaskManager();
         Task task = new Task("Task createTasks", "Task createTasks description", taskManager.getId());
         final int taskId = taskManager.addNewTask(task);
@@ -32,12 +32,12 @@ class InMemoryTaskManagerTest {
 
         SubTask subTask = new SubTask("SubTask createTasks", "SubTask createTasks description", taskManager.getId(), epic.getId());
         final int subtaskId = taskManager.addNewSubTask(subTask);
-        final  SubTask savedSubTask = taskManager.getSubTask(subtaskId);
+        final SubTask savedSubTask = taskManager.getSubTask(subtaskId);
         assertEquals(1, taskManager.getSubtasks().size(), "Epic не создан");
     }
 
     @Test
-    void checkIds(){
+    void checkIds() {
         /*проверьте, что задачи с заданным id и сгенерированным id не конфликтуют внутри менеджера;*/
         InMemoryTaskManager taskManager = new InMemoryTaskManager();
         Task task = new Task("Task checkIds", "Task checkIds description", taskManager.getId());
