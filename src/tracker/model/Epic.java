@@ -24,10 +24,10 @@ public class Epic extends Task {
 
     @Override
     public String toString() {
-        return id  + ","
+        return id + ","
                 + TasksType.EPIC + ","
-                + name+ ","
-                + status +","
+                + name + ","
+                + status + ","
                 + desc;
     }
 

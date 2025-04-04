@@ -33,8 +33,8 @@ public class SubTask extends Task {
     public String toString() {
         return id + ","
                 + getClass().getSimpleName().toUpperCase() + ","
-                +  name + ","
-                +  status + ","
+                + name + ","
+                + status + ","
                 + desc + ","
                 + getEpicId();
     }

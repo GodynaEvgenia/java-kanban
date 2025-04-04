@@ -51,6 +51,7 @@ public class InMemoryTaskManager implements TaskManager {
         tasks.put(id, task);
         return id;
     }
+
     @Override
     public void addTask(Task task) {
         tasks.put(task.getId(), task);
@@ -62,7 +63,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void addSubtask(SubTask subTask){
+    public void addSubtask(SubTask subTask) {
         subTasks.put(subTask.getId(), subTask);
     }
 

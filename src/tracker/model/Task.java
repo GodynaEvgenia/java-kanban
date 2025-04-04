@@ -31,8 +31,8 @@ public class Task {
     public String toString() {
         return id + ","
                 + getClass().getSimpleName().toUpperCase() + ","
-                +  name + ","
-                +  status +","
+                + name + ","
+                + status + ","
                 + desc;
     }
 
