@@ -24,12 +24,11 @@ public class Epic extends Task {
 
     @Override
     public String toString() {
-        return "tracker.model.Epic{"
-                + "id=" + getId() + ", "
-                + "name='" + name + "', "
-                + "status=" + status + ", "
-                + "subTasks=" + getSubTasksList()
-                + '}';
+        return id  + ","
+                + TasksType.EPIC + ","
+                + name+ ","
+                + status +","
+                + desc;
     }
 
     @Override
