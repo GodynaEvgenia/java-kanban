@@ -1,3 +1,4 @@
+import tracker.controller.FileBackedTaskManager;
 import tracker.controller.InMemoryTaskManager;
 import tracker.model.Epic;
 import tracker.model.Statuses;
@@ -9,7 +10,11 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
-        InMemoryTaskManager taskManager = new InMemoryTaskManager();
+        InMemoryTaskManager taskManager = new FileBackedTaskManager("saved.csv");//InMemoryTaskManager();
+
+        printTasks(taskManager.getTasks());
+        printEpics(taskManager.getEpics());
+        printSubTasks(taskManager.getSubtasks());
 
         /*Создайте две задачи, а также эпик с двумя подзадачами и эпик с одной подзадачей.*/
         Task task1 = new Task("Обучение", "Сдать все работы на платформе Practicum до дедлайна", taskManager.getId());
@@ -17,7 +22,7 @@ public class Main {
         taskManager.addNewTask(task1);
         taskManager.addNewTask(task2);
 
-        Epic epic1 = new Epic("Восхождение на Эльбрус", "Восхождение на Эльбрус", taskManager.getId());
+        Epic epic1 = new Epic("Восхождение", "Восхождение на Эльбрус", taskManager.getId());
         taskManager.addNewEpic(epic1);
 
         SubTask subtask1 = new SubTask("Купить снаряжение и одежду", "Купить снаряжение и одежду", taskManager.getId(), epic1.getId());
@@ -25,7 +30,7 @@ public class Main {
         taskManager.addNewSubTask(subtask1);
         taskManager.addNewSubTask(subtask2);
 
-        Epic epic2 = new Epic("Сбросить 5 кг", "Сбросить 5 кг", taskManager.getId());
+        Epic epic2 = new Epic("Сбросить_вес", "Сбросить 5 кг", taskManager.getId());
         taskManager.addNewEpic(epic2);
 
         SubTask subTask3 = new SubTask("Составить меню", "Составить меню", taskManager.getId(), epic2.getId());

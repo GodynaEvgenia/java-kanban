@@ -18,6 +18,12 @@ public interface TaskManager {
 
     int addNewTask(Task task);
 
+    void addTask(Task task);
+
+    void addEpic(Epic epic);
+
+    void addSubtask(SubTask subTask);
+
     int addNewEpic(Epic epic);
 
     int addNewSubTask(SubTask subTask);
