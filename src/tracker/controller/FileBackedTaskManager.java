@@ -11,10 +11,11 @@ import java.nio.file.Paths;
 
 import static tracker.model.TasksType.*;
 
-public class FileBackedTaskManager extends InMemoryTaskManager{
+public class FileBackedTaskManager extends InMemoryTaskManager {
     private static String filename;
     private static final String HOME = System.getProperty("user.home");
     private static final String RESOURCES_DIR = Paths.get(HOME, "IdeaProjects/java-kanban/src/tracker/resources/").toString();
+
     public FileBackedTaskManager(String filename) {
         super();
         this.filename = filename;
@@ -112,7 +113,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager{
 
     public void save() {
 
-        try (Writer fileWriter = new FileWriter(RESOURCES_DIR+"/"+filename, StandardCharsets.UTF_8)) {
+        try (Writer fileWriter = new FileWriter(RESOURCES_DIR + "/" + filename, StandardCharsets.UTF_8)) {
 
             for (Task task : getTasks()) {
                 String line = task.toString();
@@ -156,7 +157,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager{
 
     public static List<String> loadFromFile() {
         List<String> result = new ArrayList<>();
-        try (Reader fileReader = new FileReader(RESOURCES_DIR+"/"+filename, StandardCharsets.UTF_8)) {
+        try (Reader fileReader = new FileReader(RESOURCES_DIR + "/" + filename, StandardCharsets.UTF_8)) {
 
             BufferedReader br = new BufferedReader(fileReader);
 
