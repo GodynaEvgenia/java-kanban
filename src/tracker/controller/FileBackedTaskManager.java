@@ -1,17 +1,20 @@
 package tracker.controller;
 
+import tracker.exceptions.ManagerSaveException;
 import tracker.model.*;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.nio.file.Paths;
 
 import static tracker.model.TasksType.*;
 
-public class FileBackedTaskManager extends InMemoryTaskManager implements TaskManager {
+public class FileBackedTaskManager extends InMemoryTaskManager{
     private static String filename;
-
+    private static final String HOME = System.getProperty("user.home");
+    private static final String RESOURCES_DIR = Paths.get(HOME, "IdeaProjects/java-kanban/src/tracker/resources/").toString();
     public FileBackedTaskManager(String filename) {
         super();
         this.filename = filename;
@@ -109,7 +112,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
 
     public void save() {
 
-        try (Writer fileWriter = new FileWriter("saved.csv", StandardCharsets.UTF_8)) {
+        try (Writer fileWriter = new FileWriter(RESOURCES_DIR+"/"+filename, StandardCharsets.UTF_8)) {
 
             for (Task task : getTasks()) {
                 String line = task.toString();
@@ -129,7 +132,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
                 fileWriter.write("\n");
             }
         } catch (IOException e) {
-            System.out.println("Произошла ошибка во время записи файла.");
+            throw new ManagerSaveException("Ошибка при записи в  файл: " + e.getMessage());
         }
     }
 
@@ -153,7 +156,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
 
     public static List<String> loadFromFile() {
         List<String> result = new ArrayList<>();
-        try (Reader fileReader = new FileReader(filename, StandardCharsets.UTF_8)) {
+        try (Reader fileReader = new FileReader(RESOURCES_DIR+"/"+filename, StandardCharsets.UTF_8)) {
 
             BufferedReader br = new BufferedReader(fileReader);
 
@@ -163,7 +166,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
             }
             // br.close();
         } catch (IOException e) {
-            System.out.println("Произошла ошибка во время чтения файла.");
+            throw new ManagerSaveException("Ошибка при чтении файла: " + e.getMessage());
         }
 
         return result;
@@ -184,7 +187,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
 
     public static SubTask stringToSubTask(String line) {
         String[] split = line.split(",");
-        SubTask subTask = new SubTask(split[2], split[4], Integer.valueOf(split[0]), Integer.valueOf(6));
+        SubTask subTask = new SubTask(split[2], split[4], Integer.valueOf(split[0]), Integer.valueOf(split[5]));
         return subTask;
     }
 }
