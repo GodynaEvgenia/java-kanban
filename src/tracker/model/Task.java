@@ -29,10 +29,11 @@ public class Task {
 
     @Override
     public String toString() {
-        return "tracker.model.Task{"
-                + "name='" + name + "', "
-                + "status=" + status
-                + '}';
+        return id + ","
+                + getClass().getSimpleName().toUpperCase() + ","
+                + name + ","
+                + status + ","
+                + desc;
     }
 
     @Override

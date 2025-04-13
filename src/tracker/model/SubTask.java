@@ -31,11 +31,12 @@ public class SubTask extends Task {
 
     @Override
     public String toString() {
-        return "tracker.model.SubTask{"
-                + "id=" + getId() + ", "
-                + "name='" + name + "', "
-                + "status=" + status
-                + '}';
+        return id + ","
+                + getClass().getSimpleName().toUpperCase() + ","
+                + name + ","
+                + status + ","
+                + desc + ","
+                + getEpicId();
     }
 
     @Override
