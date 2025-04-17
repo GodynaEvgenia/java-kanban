@@ -1,20 +1,25 @@
 package tracker.controller;
 
 import tracker.exceptions.ManagerSaveException;
-import tracker.model.*;
+import tracker.model.Epic;
+import tracker.model.Statuses;
+import tracker.model.SubTask;
+import tracker.model.Task;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.nio.file.Paths;
-
-import static tracker.model.TasksType.*;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
     private static String filename;
     private static final String HOME = System.getProperty("user.home");
     private static final String RESOURCES_DIR = Paths.get(HOME, "IdeaProjects/java-kanban/src/tracker/resources/").toString();
+    private static final String DATE_PATTERN = "yyyy-MM-dd'T'HH:mm";
 
     public FileBackedTaskManager(String filename) {
         super();
@@ -125,6 +130,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 String line = epic.toString();
                 fileWriter.write(line);
                 fileWriter.write("\n");
+
+                System.out.println("СОХРАНЕНИЕ ЭПИКА В ФАЙЛ");
             }
 
             for (SubTask subTask : getSubtasks()) {
@@ -175,7 +182,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     public static Task stringToTask(String line) {
         String[] split = line.split(",");
-        Task task = new Task(split[2], split[4], Integer.valueOf(split[0]));
+        LocalDateTime startTime = LocalDateTime.parse(split[7], DateTimeFormatter.ofPattern(DATE_PATTERN));
+        Task task = new Task(split[2], split[4], Integer.valueOf(split[0]), Duration.ofMinutes(Long.valueOf(split[6])), LocalDateTime.parse(split[7], DateTimeFormatter.ofPattern(DATE_PATTERN)));
 
         return task;
     }
@@ -183,12 +191,14 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     public static Epic stringToEpic(String line) {
         String[] split = line.split(",");
         Epic epic = new Epic(split[2], split[4], Integer.valueOf(split[0]));
+        epic.setDuration(Duration.ofMinutes(Long.valueOf(split[5])));
+        epic.setStartTime(LocalDateTime.parse(split[7], DateTimeFormatter.ofPattern(DATE_PATTERN)));
         return epic;
     }
 
     public static SubTask stringToSubTask(String line) {
         String[] split = line.split(",");
-        SubTask subTask = new SubTask(split[2], split[4], Integer.valueOf(split[0]), Integer.valueOf(split[5]));
+        SubTask subTask = new SubTask(split[2], split[4], Integer.valueOf(split[0]), Integer.valueOf(split[5]), Duration.ofMinutes(Long.valueOf(split[5])), null);
         return subTask;
     }
 }

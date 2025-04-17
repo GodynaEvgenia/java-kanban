@@ -1,13 +1,16 @@
 package tracker.model;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class Epic extends Task {
     private ArrayList<Integer> subTasksList = new ArrayList<Integer>();
+    private LocalDateTime endTime;
 
     public Epic(String name, String desc, int id) {
-        super(name, desc, id);
+        super(name, desc, id, null, null);
         this.status = Statuses.NEW;
         this.subTasksList = new ArrayList<Integer>();
     }
@@ -24,11 +27,18 @@ public class Epic extends Task {
 
     @Override
     public String toString() {
+        Long durationToMinutes = null;
+        if (duration != null) {
+            durationToMinutes = duration.toMinutes();
+        }
         return id + ","
                 + TasksType.EPIC + ","
                 + name + ","
                 + status + ","
-                + desc;
+                + desc + ","
+                + ","
+                + durationToMinutes + ","
+                + startTime;
     }
 
     @Override
@@ -46,4 +56,26 @@ public class Epic extends Task {
         // вызываем вспомогательный метод и передаём в него нужные поля
         return Objects.hash(name, desc, id);
     }
+
+    public Statuses getStatus(int epicId) {
+        return this.status;
+    }
+
+    @Override
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    public void setStartTime(LocalDateTime endTime) {
+        this.startTime = startTime;
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
 }

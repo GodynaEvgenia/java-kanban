@@ -5,13 +5,10 @@ import tracker.controller.InMemoryTaskManager;
 import tracker.model.Epic;
 import tracker.model.Task;
 
-
-
-
-
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class EpicTest {
     @Test
@@ -36,4 +33,5 @@ class EpicTest {
         assertEquals(0, epic.getSubTasksList().size(), "Эпик нельзя добавить в список подзадаач");
 
     }
+
 }
