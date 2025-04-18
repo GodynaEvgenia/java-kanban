@@ -1,12 +1,14 @@
 package tracker.model;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class SubTask extends Task {
     private int epicId;
 
-    public SubTask(String name, String desc, int id, int epicId) {
-        super(name, desc, id);
+    public SubTask(String name, String desc, int id, int epicId, Duration duration, LocalDateTime startTime) {
+        super(name, desc, id, duration, startTime);
         this.epicId = epicId;
     }
 
@@ -31,12 +33,18 @@ public class SubTask extends Task {
 
     @Override
     public String toString() {
+        Long durationToMinutes = null;
+        if (duration != null) {
+            durationToMinutes = duration.toMinutes();
+        }
         return id + ","
                 + getClass().getSimpleName().toUpperCase() + ","
                 + name + ","
                 + status + ","
                 + desc + ","
-                + getEpicId();
+                + getEpicId() + ","
+                + durationToMinutes + ","
+                + startTime;
     }
 
     @Override

@@ -5,7 +5,10 @@ import tracker.controller.InMemoryTaskManager;
 import tracker.model.Epic;
 import tracker.model.SubTask;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.time.Duration;
+import java.time.LocalDateTime;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SubTaskTest {
     @Test
@@ -13,7 +16,8 @@ class SubTaskTest {
 
         InMemoryTaskManager taskManager = new InMemoryTaskManager();
         Epic epic = new Epic("Test epic", "Test epic description", taskManager.getId());
-        SubTask subTask = new SubTask("Test checkEqualsById", "Test checkEqualsById description", taskManager.getId(), epic.getId());
+        SubTask subTask = new SubTask("Test checkEqualsById", "Test checkEqualsById description", taskManager.getId(), epic.getId(),
+                Duration.ofMinutes(30L), LocalDateTime.of(2025, 4, 19, 10, 30));
         final int subTaskId = taskManager.addNewSubTask(subTask);
         final SubTask savedSubTask = taskManager.getSubTask(subTaskId);
         assertEquals(subTask, savedSubTask, "Экземпляры класса SubTask не совпадают");

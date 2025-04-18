@@ -54,4 +54,11 @@ public interface TaskManager {
 
     List<Task> getHistory();
 
+    List<Task> getPrioritizedTasks();
+
+    void updateEpicEndTime(int epicId);
+
+    void updateEpicStartTime(int epicId);
+
+    void updateEpicDuration(int epicId);
 }
