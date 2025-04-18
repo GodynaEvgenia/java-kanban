@@ -132,15 +132,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public boolean isEpicExists(int epicId) {
-        /*for (Epic epic : epics.values()) {
-            if (epic.getId() == epicId) {
-                return true;
-            }
-        }
-        return false;*/
-        return getEpics()
-                .stream()
-                .anyMatch(epic -> epic.getId() == epicId);
+        return epics.containsKey(epicId);
     }
 
     @Override
@@ -198,11 +190,8 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void removeAllTasks() {
-        /*for (Integer taskId : tasks.keySet()) {
-            history.remove(taskId);
-        }*/
-        getTasks().stream().forEach(task -> history.remove(task.getId()));
-        getTasks().stream().map(task -> prioritizedTasks.remove(task));
+        getTasks().forEach(task -> history.remove(task.getId()));
+        getTasks().forEach(prioritizedTasks::remove);
         tasks.clear();
     }
 
@@ -210,15 +199,12 @@ public class InMemoryTaskManager implements TaskManager {
     public void removeEpicById(Integer epicId) {
         history.remove(epicId);
         final Epic epic = epics.remove(epicId);
-        /*for (Integer subtaskId : epic.getSubTasksList()) {
-            subTasks.remove(subtaskId);
-            history.remove(subtaskId);
-        }*/
         epic.getSubTasksList()
                 .stream()
                 .forEach(subtaskId -> {
                     subTasks.remove(subtaskId);
                     history.remove(subtaskId);
+                    prioritizedTasks.remove(subTasks.get(subtaskId));
                 });
     }
 
@@ -308,8 +294,9 @@ public class InMemoryTaskManager implements TaskManager {
         updateEpicDuration(epicId);
     }
 
-    public Set<Task> getPrioritizedTasks() {
-        return prioritizedTasks;
+    @Override
+    public List<Task> getPrioritizedTasks() {
+        return new ArrayList<>(prioritizedTasks);
     }
 
     public boolean periodIsCrossed(LocalDateTime startTime, Duration duration) {
