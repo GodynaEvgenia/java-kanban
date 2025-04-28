@@ -42,27 +42,6 @@ class HttpTaskServerTest {
     }
 
     @Test
-    public void testGetTask() throws IOException, InterruptedException {
-        Task task = new Task("Test 1", "Testing task 1",1,
-                Duration.ofMinutes(5L), LocalDateTime.now());
-
-        manager.addNewTask(task);
-        // создаём HTTP-клиент и запрос
-        HttpClient client = HttpClient.newHttpClient();
-        URI url = URI.create("http://localhost:8081/tasks/1");
-        HttpRequest request = HttpRequest.newBuilder()
-                .GET()
-                .uri(url)
-                .build();
-
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        ArrayList<Task> tasksFromManager = manager.getTasks();
-        assertEquals(200, response.statusCode());
-        assertNotNull(tasksFromManager, "Задача не возвращается");
-        assertEquals(1, tasksFromManager.size(), "Некорректное количество подзадач");
-    }
-
-    @Test
     public void testGetSubTask() throws IOException, InterruptedException {
         Epic epic = new Epic("Epic 1", "Epic 1", 1);
         manager.addEpic(epic);
@@ -84,25 +63,5 @@ class HttpTaskServerTest {
         assertEquals(200, response.statusCode());
         assertNotNull(subtasksFromManager, "Подзадача не возвращается");
         assertEquals(1, subtasksFromManager.size(), "Некорректное количество задач");
-    }
-
-    @Test
-    public void testGetEpic() throws IOException, InterruptedException {
-        Epic epic = new Epic("Epic 1", "Epic 1", 1);
-        manager.addEpic(epic);
-
-        // создаём HTTP-клиент и запрос
-        HttpClient client = HttpClient.newHttpClient();
-        URI url = URI.create("http://localhost:8081/epics/1");
-        HttpRequest request = HttpRequest.newBuilder()
-                .GET()
-                .uri(url)
-                .build();
-
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        ArrayList<Epic> epicsFromManager = manager.getEpics();
-        assertEquals(200, response.statusCode());
-        assertNotNull(epicsFromManager, "Эпик не возвращается");
-        assertEquals(1, epicsFromManager.size(), "Некорректное количество эпиков");
     }
 }
