@@ -69,6 +69,7 @@ public class Main {
             task = taskManager.getTask(task2.getId());
             task = taskManager.getTask(task1.getId());
         } catch (IOException ex) {
+            System.out.println(ex.getStackTrace());
         }
 
         task = taskManager.getSubTask(subtask1.getId());
