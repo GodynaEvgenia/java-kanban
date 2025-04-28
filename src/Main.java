@@ -1,10 +1,10 @@
-import tracker.controller.FileBackedTaskManager;
 import tracker.controller.InMemoryTaskManager;
 import tracker.model.Epic;
 import tracker.model.Statuses;
 import tracker.model.SubTask;
 import tracker.model.Task;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
-        InMemoryTaskManager taskManager = new FileBackedTaskManager("saved.csv");//InMemoryTaskManager(); FileBackedTaskManager("saved.csv")
+        InMemoryTaskManager taskManager = new InMemoryTaskManager(); //FileBackedTaskManager("saved.csv")
 
         printTasks(taskManager.getTasks());
         printEpics(taskManager.getEpics());
@@ -63,10 +63,14 @@ public class Main {
         printSubTasks(taskManager.getSubtasks());
 
         //просмотр
-        Task task = taskManager.getTask(task1.getId());
-        task = taskManager.getTask(task2.getId());
-        task = taskManager.getTask(task1.getId());
-        task = taskManager.getTask(task2.getId());
+        Task task;
+        try {
+            task = taskManager.getTask(task1.getId());
+            task = taskManager.getTask(task2.getId());
+            task = taskManager.getTask(task1.getId());
+        } catch (IOException ex) {
+        }
+
         task = taskManager.getSubTask(subtask1.getId());
         task = taskManager.getSubTask(subTask4.getId());
         task = taskManager.getEpic(epic3.getId());

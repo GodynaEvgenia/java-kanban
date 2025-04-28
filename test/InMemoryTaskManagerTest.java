@@ -6,6 +6,7 @@ import tracker.model.Epic;
 import tracker.model.SubTask;
 import tracker.model.Task;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
@@ -26,19 +27,24 @@ class InMemoryTaskManagerTest {
         Task task = new Task("Task createTasks", "Task createTasks description", taskManager.getId(),
                 Duration.ofMinutes(30L), LocalDateTime.of(2025, 4, 23, 10, 30));
         final int taskId = taskManager.addNewTask(task);
-        final Task savedTask = taskManager.getTask(task.getId());
-        assertEquals(1, taskManager.getTasks().size(), "Task не создан");
+        try{
+            final Task savedTask = taskManager.getTask(task.getId());
+            assertEquals(1, taskManager.getTasks().size(), "Task не создан");
 
-        Epic epic = new Epic("Epic createTasks", "Epic createTasks description", taskManager.getId());
-        final int epicId = taskManager.addNewEpic(epic);
-        final Task savedEpic = taskManager.getEpic(epicId);
-        assertEquals(1, taskManager.getEpics().size(), "Epic не создан");
+            Epic epic = new Epic("Epic createTasks", "Epic createTasks description", taskManager.getId());
+            final int epicId = taskManager.addNewEpic(epic);
+            final Task savedEpic = taskManager.getEpic(epicId);
+            assertEquals(1, taskManager.getEpics().size(), "Epic не создан");
 
-        SubTask subTask = new SubTask("SubTask createTasks", "SubTask createTasks description", taskManager.getId(), epic.getId(),
-                Duration.ofMinutes(30L), LocalDateTime.of(2025, 4, 22, 10, 30));
-        final int subtaskId = taskManager.addNewSubTask(subTask);
-        final SubTask savedSubTask = taskManager.getSubTask(subtaskId);
-        assertEquals(1, taskManager.getSubtasks().size(), "Epic не создан");
+            SubTask subTask = new SubTask("SubTask createTasks", "SubTask createTasks description", taskManager.getId(), epic.getId(),
+                    Duration.ofMinutes(30L), LocalDateTime.of(2025, 4, 22, 10, 30));
+            final int subtaskId = taskManager.addNewSubTask(subTask);
+            final SubTask savedSubTask = taskManager.getSubTask(subtaskId);
+            assertEquals(1, taskManager.getSubtasks().size(), "Epic не создан");
+        } catch(IOException ex){
+            ex.printStackTrace();
+        }
+
     }
 
     @Test

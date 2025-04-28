@@ -7,6 +7,7 @@ import tracker.model.Statuses;
 import tracker.model.SubTask;
 import tracker.model.Task;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
@@ -94,7 +95,11 @@ class TaskManagerTest {
         Task task1 = new Task("Task1", "Task1", taskManager.getId(),
                 Duration.ofMinutes(1L), LocalDateTime.of(2025, 4, 23, 13, 0));
         taskManager.addNewTask(task1);
-        assertEquals(task1, taskManager.getTask(task1.getId()), "Ошибка при получении задаачи");
+        try{
+            assertEquals(task1, taskManager.getTask(task1.getId()), "Ошибка при получении задаачи");
+        } catch (IOException ex){
+            ex.printStackTrace();
+        }
     }
 
     @Test

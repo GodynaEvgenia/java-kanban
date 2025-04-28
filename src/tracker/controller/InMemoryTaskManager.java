@@ -6,6 +6,7 @@ import tracker.model.Statuses;
 import tracker.model.SubTask;
 import tracker.model.Task;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -107,6 +108,27 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
+    public void updateTask(Task task) {
+        Task taskToEdit = tasks.get(task.getId());
+        taskToEdit.setName(task.getName());
+        taskToEdit.setDesc(task.getDesc());
+        taskToEdit.setStatus(task.getStatus());
+        taskToEdit.setStartTime(task.getStartTime());
+        taskToEdit.setDuration(task.getDuration());
+    }
+
+    @Override
+    public void updateSubTask(SubTask subTask) {
+        SubTask subtaskToEdit = subTasks.get(subTask.getId());
+        subtaskToEdit.setName(subTask.getName());
+        subtaskToEdit.setDesc(subTask.getDesc());
+        subtaskToEdit.setStatus(subTask.getStatus());
+        subtaskToEdit.setStartTime(subTask.getStartTime());
+        subtaskToEdit.setDuration(subTask.getDuration());
+        subtaskToEdit.setEpicId(subTask.getEpicId());
+    }
+
+    @Override
     public SubTask getSubTask(int subTaskId) {
         if (subTasks.containsKey(subTaskId)) {
             history.addTask(subTasks.get(subTaskId));
@@ -115,11 +137,13 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public Task getTask(int taskId) {
+    public Task getTask(int taskId) throws IOException {
         if (tasks.containsKey(taskId)) {
             history.addTask(tasks.get(taskId));
+            return tasks.get(taskId);
+        } else {
+            throw new NoSuchElementException();
         }
-        return tasks.get(taskId);
     }
 
     @Override
