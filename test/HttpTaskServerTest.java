@@ -47,7 +47,6 @@ class HttpTaskServerTest {
                 Duration.ofMinutes(5L), LocalDateTime.now());
 
         manager.addNewTask(task);
-        ArrayList<Task> tasksFromManager = manager.getTasks();
         // создаём HTTP-клиент и запрос
         HttpClient client = HttpClient.newHttpClient();
         URI url = URI.create("http://localhost:8081/tasks/1");
@@ -57,7 +56,7 @@ class HttpTaskServerTest {
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
+        ArrayList<Task> tasksFromManager = manager.getTasks();
         assertEquals(200, response.statusCode());
         assertNotNull(tasksFromManager, "Задача не возвращается");
         assertEquals(1, tasksFromManager.size(), "Некорректное количество подзадач");
@@ -92,7 +91,6 @@ class HttpTaskServerTest {
         Epic epic = new Epic("Epic 1", "Epic 1", 1);
         manager.addEpic(epic);
 
-        ArrayList<Epic> epicsFromManager = manager.getEpics();
         // создаём HTTP-клиент и запрос
         HttpClient client = HttpClient.newHttpClient();
         URI url = URI.create("http://localhost:8081/epics/1");
@@ -102,7 +100,7 @@ class HttpTaskServerTest {
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
+        ArrayList<Epic> epicsFromManager = manager.getEpics();
         assertEquals(200, response.statusCode());
         assertNotNull(epicsFromManager, "Эпик не возвращается");
         assertEquals(1, epicsFromManager.size(), "Некорректное количество эпиков");
