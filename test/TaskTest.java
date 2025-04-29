@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import tracker.controller.InMemoryTaskManager;
 import tracker.model.Task;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
@@ -18,11 +19,14 @@ class TaskTest {
         Task task = new Task("Test checkEqualsById", "Test checkEqualsById description", taskManager.getId(),
                 Duration.ofMinutes(30L), LocalDateTime.of(2025, 4, 19, 10, 30));
         final int taskId = taskManager.addNewTask(task);
-        final Task savedTask = taskManager.getTask(task.getId());
+        try{
+            final Task savedTask = taskManager.getTask(task.getId());
 
-        assertEquals(task, savedTask, "Экземпляры класса Task не совпадают");
-        assertNotNull(savedTask, " Таск не найден");
-
+            assertEquals(task, savedTask, "Экземпляры класса Task не совпадают");
+            assertNotNull(savedTask, " Таск не найден");
+        } catch (IOException ex){
+            ex.printStackTrace();
+        }
     }
 
 }

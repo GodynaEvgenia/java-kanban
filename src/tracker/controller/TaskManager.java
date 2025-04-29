@@ -5,10 +5,13 @@ import tracker.model.Statuses;
 import tracker.model.SubTask;
 import tracker.model.Task;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public interface TaskManager {
+
+    int getId();
 
     ArrayList<Task> getTasks();
 
@@ -28,9 +31,13 @@ public interface TaskManager {
 
     int addNewSubTask(SubTask subTask);
 
+    void updateTask(Task task);
+
+    void updateSubTask(SubTask subTask);
+
     SubTask getSubTask(int subTaskId);
 
-    Task getTask(int taskId);
+    Task getTask(int taskId) throws IOException;
 
     Epic getEpic(int epicId);
 

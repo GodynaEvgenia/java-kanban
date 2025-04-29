@@ -12,6 +12,31 @@ public class SubTask extends Task {
         this.epicId = epicId;
     }
 
+    public void setId(int newId) {
+        this.id = newId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    @Override
+    public void setStatus(Statuses newStatus) {
+        status = newStatus;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
     public int getEpicId() {
         return epicId;
     }
@@ -26,9 +51,25 @@ public class SubTask extends Task {
         return status;
     }
 
-    @Override
-    public void setStatus(Statuses newStatus) {
-        status = newStatus;
+    public String getName() {
+        return this.name;
+    }
+
+    public String getDesc() {
+        return this.desc;
+    }
+
+
+    public LocalDateTime getStartTime() {
+        return this.startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return this.startTime.plus(this.duration);
+    }
+
+    public Duration getDuration() {
+        return this.duration;
     }
 
     @Override
