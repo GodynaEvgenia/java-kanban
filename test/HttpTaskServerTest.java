@@ -52,7 +52,7 @@ class HttpTaskServerTest {
 
         // создаём HTTP-клиент и запрос
         HttpClient client = HttpClient.newHttpClient();
-        URI url = URI.create("http://localhost:8081/subtasks/2");
+        URI url = URI.create("http://localhost:8080/subtasks/2");
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
                 .uri(url)
